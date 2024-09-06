@@ -26,6 +26,8 @@ export const userTypeDef = /* GraphQL */`
         id: ID!
         name: String,
         email: String
+
+        comments: [Comment]
     }
 `;
 
@@ -88,7 +90,22 @@ export const userResolvers = {
         },
         name: (obj) => {
             return obj.name.trim().toUpperCase();
+        },
+        comments: (obj, args, {mongo}) => {
+            return mongo.comments.find({email: obj.email}).limit(20).toArray();
         }
+
+        /** example 
+         * query GetUser {
+         user(id: "59b99dc8cfa9a34dcd7885de") {
+            name
+            email
+            comments {
+            text
+            email
+            }
+        }
+        } */
     }
 
 }
