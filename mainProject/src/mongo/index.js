@@ -26,7 +26,8 @@ export async function setupDatabase() {
         db: db,
         
         users: db.collection('users'),
-        movies: db.collection('movies')
+        movies: db.collection('movies'),
+        comments: db.collection('comments')
         
     }
   } catch(e) {
